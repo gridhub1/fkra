@@ -39,10 +39,10 @@
 
     <style>
         :root {
-            --primary-color: #0d5175;     /* الأزرق البترولي من اللوجو */
-            --accent-color: #e69119;      /* البرتقالي/الأصفر المضيء من اللوجو */
-            --bg-light: #f8fafc;          /* خلفية فاتحة مريحة */
-            --text-dark: #1e293b;         /* لون النصوص الأساسي */
+            --primary-color: #0d5175;      /* الأزرق البترولي من اللوجو */
+            --accent-color: #e69119;       /* البرتقالي/الأصفر المضيء من اللوجو */
+            --bg-light: #f8fafc;           /* خلفية فاتحة مريحة */
+            --text-dark: #1e293b;          /* لون النصوص الأساسي */
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
         }
@@ -51,15 +51,20 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif !important;
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Tajawal', sans-serif !important;
             background-color: var(--bg-light);
             color: var(--text-dark);
             direction: rtl;
             line-height: 1.6;
             scroll-behavior: smooth;
+        }
+
+        button, input, select, textarea {
+            font-family: 'Tajawal', sans-serif !important;
         }
 
         .container {

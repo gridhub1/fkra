@@ -24,12 +24,12 @@
     }
     </script>
 
-    <!-- تحسين أداء وسرعة التحميل واستدعاء خط تجوال Tajawal -->
+    <!-- تحسين أداء وسرعة التحميل -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 
     <!-- مكتبة Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -41,7 +41,7 @@
         :root {
             --primary-color: #0d5175;      /* الأزرق البترولي من اللوجو */
             --accent-color: #e69119;       /* البرتقالي/الأصفر المضيء من اللوجو */
-            --bg-light: #f8fafc;           /* خلفية فاتحة مريحة */
+            --bg-light: #f8fafc;          /* خلفية فاتحة مريحة */
             --text-dark: #1e293b;          /* لون النصوص الأساسي */
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
@@ -51,7 +51,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body {
@@ -67,6 +66,43 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        /* شاشة التحميل (Preloader) */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-logo {
+            width: 220px;
+            height: auto;
+            margin-bottom: 20px;
+            animation: logoPulse 1.5s infinite ease-in-out;
+        }
+
+        .loader-spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid rgba(13, 81, 117, 0.1);
+            border-top: 4px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
         /* الهيدر */
@@ -88,13 +124,14 @@
         }
 
         .logo img {
-            height: 50px;
+            height: 80px; /* تم تكبير اللوجو في الهيدر */
+            width: auto;
             object-fit: contain;
             transition: transform 0.3s ease;
         }
 
         .logo img:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .nav-links {
@@ -125,7 +162,7 @@
             padding: 8px 12px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            font-family: 'Tajawal', sans-serif;
+            font-family: inherit;
             outline: none;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
@@ -142,7 +179,7 @@
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
+            font-family: inherit;
             font-weight: bold;
             transition: background 0.3s, transform 0.2s;
             display: flex;
@@ -167,6 +204,21 @@
             text-align: center;
             border-radius: 0 0 20px 20px;
             animation: fadeIn 0.8s ease-out;
+        }
+
+        .hero-logo-wrapper {
+            margin-bottom: 20px;
+        }
+
+        .hero-logo {
+            max-width: 250px;
+            height: auto;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .hero-logo:hover {
+            transform: scale(1.05);
         }
 
         .hero-section h1 {
@@ -341,8 +393,16 @@
             background: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 20px 0;
+            padding: 30px 0 20px;
             margin-top: 40px;
+        }
+
+        .footer-logo {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
         }
 
         /* تأثيرات حركة الأنيميشن Keyframes */
@@ -368,13 +428,28 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes logoPulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* تجاوب الشاشات الصغيرة */
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: center;
             }
             
+            .logo img {
+                height: 65px;
+            }
+
             .nav-links {
                 justify-content: center;
             }
@@ -383,11 +458,17 @@
 </head>
 <body>
 
+    /* صفحة/شاشة التحميل المصممة باللوجو */
+    <div id="preloader">
+        <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="تحميل كل يوم فكرة" class="preloader-logo">
+        <div class="loader-spinner"></div>
+    </div>
+
     <!-- الهيدر العلوي -->
     <header class="main-header">
         <div class="container header-container">
             <a href="https://ibb.co/vvBPfhcH" class="logo" title="كل يوم فكرة">
-                <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="شعار كل يوم فكرة" id="site-logo" width="180" height="50" loading="eager" decoding="async">
+                <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="شعار كل يوم فكرة" id="site-logo" width="240" height="80" loading="eager" decoding="async">
             </a>
             
             <nav class="nav-links">
@@ -406,6 +487,11 @@
     <!-- قسم الهيرو / الترحيب -->
     <section class="hero-section">
         <div class="container">
+            <div class="hero-logo-wrapper">
+                <a href="https://ibb.co/vvBPfhcH">
+                    <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="شعار كل يوم فكرة" class="hero-logo">
+                </a>
+            </div>
             <h1>كل يوم فكرة.. تغير يومك للأفضل! <i class="fa-solid fa-lightbulb"></i></h1>
             <p>اكتشف مئات الحيل والأفكار المبتكرة في التكنولوجيا، التوفير، المنزليات، وتطوير الذات.</p>
         </div>
@@ -487,12 +573,22 @@
     <!-- الفوتر -->
     <footer class="main-footer">
         <div class="container footer-content">
+            <a href="https://ibb.co/vvBPfhcH">
+                <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="شعار كل يوم فكرة" class="footer-logo">
+            </a>
             <p>جميع الحقوق محفوظة © 2026 - <strong>كل يوم فكرة</strong></p>
         </div>
     </footer>
 
-    <!-- سكريبت تشغيل الأزرار والبحث التفاعلي -->
+    <!-- سكريبت تشغيل الأزرار والبحث التفاعلي وإخفاء التحميل -->
     <script>
+      window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.classList.add('hidden');
+        }
+      });
+
       document.addEventListener('DOMContentLoaded', () => {
         const searchInput = document.getElementById('searchInput');
         const searchBtn = document.getElementById('searchBtn');

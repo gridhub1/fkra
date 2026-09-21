@@ -5,7 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كل يوم فكرة | متجدد ومبتكر</title>
 
-    <!-- خط تجوال من Google Fonts -->
+    <!-- تحسين محركات البحث للوجو والموقع SEO & Meta Tags -->
+    <meta name="description" content="موقع كل يوم فكرة يقدم حيل وأفكار مبتكرة في التكنولوجيا، التوفير، المنزليات، وتطوير الذات.">
+    <meta property="og:title" content="كل يوم فكرة | متجدد ومبتكر">
+    <meta property="og:description" content="اكتشف مئات الحيل والأفكار المبتكرة يومياً.">
+    <meta property="og:image" content="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png">
+
+    <!-- Schema.org للتعريف باللوجو والموقع لدى محركات البحث مثل جوجل -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "كل يوم فكرة",
+      "url": "https://ibb.co/vvBPfhcH",
+      "logo": "https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png"
+    }
+    </script>
+
+    <!-- تحسين أداء وسرعة التحميل -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -14,7 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- مكتبة Netlify/Decap Identity للتسجيل والدخول لـ Decap CMS -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
 
     <style>
         :root {
@@ -38,6 +59,7 @@
             color: var(--text-dark);
             direction: rtl;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -54,6 +76,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
         .header-container {
@@ -66,6 +89,11 @@
         .logo img {
             height: 50px;
             object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -77,12 +105,14 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.2s;
+            display: inline-block;
         }
 
         .nav-links a:hover, .nav-links a.active {
             color: var(--primary-color);
             font-weight: 700;
+            transform: translateY(-2px);
         }
 
         .search-box {
@@ -96,6 +126,12 @@
             border-radius: 6px;
             font-family: inherit;
             outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(13, 81, 117, 0.15);
         }
 
         .search-box button {
@@ -107,7 +143,7 @@
             cursor: pointer;
             font-family: inherit;
             font-weight: bold;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -115,6 +151,11 @@
 
         .search-box button:hover {
             background-color: #093c58;
+            transform: translateY(-1px);
+        }
+
+        .search-box button:active {
+            transform: translateY(0);
         }
 
         /* قسم الترحيب Hero */
@@ -124,6 +165,7 @@
             padding: 60px 0;
             text-align: center;
             border-radius: 0 0 20px 20px;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .hero-section h1 {
@@ -135,6 +177,8 @@
         .hero-section h1 i {
             color: var(--accent-color);
             margin-right: 8px;
+            animation: pulse 2s infinite;
+            display: inline-block;
         }
 
         .hero-section p {
@@ -169,12 +213,14 @@
             text-decoration: none;
             color: var(--text-dark);
             border: 1px solid var(--border-color);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+            cursor: pointer;
         }
 
-        .category-card:hover {
+        .category-card:hover, .category-card.active-cat {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: var(--primary-color);
         }
 
         .category-card .icon {
@@ -182,6 +228,11 @@
             display: block;
             margin-bottom: 10px;
             color: var(--primary-color);
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover .icon {
+            transform: scale(1.15) rotate(5deg);
         }
 
         /* كروت الأفكار */
@@ -205,11 +256,13 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.5s ease-out forwards;
         }
 
         .post-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.07);
         }
 
         .card-tag {
@@ -265,10 +318,21 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: gap 0.2s, color 0.2s;
         }
 
         .read-more:hover {
             color: var(--accent-color);
+            gap: 9px;
+        }
+
+        /* رسالة عدم وجود نتائج */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            font-size: 1.2rem;
         }
 
         /* الفوتر */
@@ -278,6 +342,29 @@
             text-align: center;
             padding: 20px 0;
             margin-top: 40px;
+        }
+
+        /* تأثيرات حركة الأنيميشن Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
         }
 
         /* تجاوب الشاشات الصغيرة */
@@ -298,19 +385,19 @@
     <!-- الهيدر العلوي -->
     <header class="main-header">
         <div class="container header-container">
-            <a href="https://ibb.co/vvBPfhcH" class="logo">
-                <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="TT2k-QHRw-1" id="site-logo">
+            <a href="https://ibb.co/vvBPfhcH" class="logo" title="كل يوم فكرة">
+                <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="شعار كل يوم فكرة" id="site-logo" width="180" height="50" loading="eager" decoding="async">
             </a>
             
             <nav class="nav-links">
-                <a href="index.html" class="active">الرئيسية</a>
+                <a href="index.html" class="active" id="btnHome">الرئيسية</a>
                 <a href="#categories">التصنيفات</a>
                 <a href="#latest">أحدث الأفكار</a>
             </nav>
 
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="ابحث عن فكرة...">
-                <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> بحث</button>
+                <input type="text" id="searchInput" placeholder="ابحث عن فكرة..." aria-label="البحث عن فكرة">
+                <button id="searchBtn" type="button"><i class="fa-solid fa-magnifying-glass"></i> بحث</button>
             </div>
         </div>
     </header>
@@ -328,19 +415,19 @@
         <div class="container">
             <h2 class="section-title">التصنيفات الرئيسية</h2>
             <div class="categories-grid">
-                <a href="#" class="category-card">
+                <a href="#latest" class="category-card" data-category="تكنولوجيا وتطبيقات">
                     <span class="icon"><i class="fa-solid fa-laptop-code"></i></span>
                     <h3>تكنولوجيا وتطبيقات</h3>
                 </a>
-                <a href="#" class="category-card">
+                <a href="#latest" class="category-card" data-category="حيل منزلية">
                     <span class="icon"><i class="fa-solid fa-house"></i></span>
                     <h3>حيل منزلية</h3>
                 </a>
-                <a href="#" class="category-card">
+                <a href="#latest" class="category-card" data-category="توفير وماليات">
                     <span class="icon"><i class="fa-solid fa-wallet"></i></span>
                     <h3>توفير وماليات</h3>
                 </a>
-                <a href="#" class="category-card">
+                <a href="#latest" class="category-card" data-category="تطوير وحلول">
                     <span class="icon"><i class="fa-solid fa-brain"></i></span>
                     <h3>تطوير وحلول</h3>
                 </a>
@@ -355,7 +442,7 @@
             
             <div class="posts-grid" id="postsContainer">
                 <!-- كارت تجريبي 1 -->
-                <article class="post-card">
+                <article class="post-card" data-category="تكنولوجيا وتطبيقات">
                     <div class="card-tag">تكنولوجيا</div>
                     <div class="card-content">
                         <h3>كيف تستفيد من الذكاء الاصطناعي في تنظيم وقتك يومياً؟</h3>
@@ -368,7 +455,7 @@
                 </article>
 
                 <!-- كارت تجريبي 2 -->
-                <article class="post-card">
+                <article class="post-card" data-category="توفير وماليات">
                     <div class="card-tag accent">توفير</div>
                     <div class="card-content">
                         <h3>5 طرق غير تقليدية لتقليل استهلاك الكهرباء في المنزل</h3>
@@ -381,7 +468,7 @@
                 </article>
 
                 <!-- كارت تجريبي 3 -->
-                <article class="post-card">
+                <article class="post-card" data-category="حيل منزلية">
                     <div class="card-tag">حيل منزلية</div>
                     <div class="card-content">
                         <h3>طريقة ترتيب المطبخ الضيق بأقل التكاليف</h3>
@@ -402,6 +489,86 @@
             <p>جميع الحقوق محفوظة © 2026 - <strong>كل يوم فكرة</strong></p>
         </div>
     </footer>
+
+    <!-- سكريبت تشغيل الأزرار والبحث التفاعلي -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const postsContainer = document.getElementById('postsContainer');
+        const posts = Array.from(postsContainer.getElementsByClassName('post-card'));
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        // دالة تصفية المقالات عند البحث أو التصفية
+        function filterPosts(query = '', category = '') {
+            let visibleCount = 0;
+            const cleanQuery = query.trim().toLowerCase();
+
+            posts.forEach(post => {
+                const title = post.querySelector('h3').textContent.toLowerCase();
+                const text = post.querySelector('p').textContent.toLowerCase();
+                const tag = post.querySelector('.card-tag').textContent.toLowerCase();
+                const postCat = post.getAttribute('data-category') || '';
+
+                const matchesQuery = cleanQuery === '' || title.includes(cleanQuery) || text.includes(cleanQuery) || tag.includes(cleanQuery);
+                const matchesCategory = category === '' || postCat === category;
+
+                if (matchesQuery && matchesCategory) {
+                    post.style.display = 'flex';
+                    post.style.animation = 'fadeInUp 0.4s ease-out forwards';
+                    visibleCount++;
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+
+            // إظهار رسالة عند عدم وجود نتائج
+            let noResultsMsg = document.getElementById('noResultsMsg');
+            if (visibleCount === 0) {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'noResultsMsg';
+                    noResultsMsg.className = 'no-results';
+                    noResultsMsg.innerHTML = '<i class="fa-solid fa-magnifying-glass-minus" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>لم نجد أفكاراً تطابق بحثك حالياً.';
+                    postsContainer.appendChild(noResultsMsg);
+                }
+            } else if (noResultsMsg) {
+                noResultsMsg.remove();
+            }
+        }
+
+        // تشغيل زر البحث والإدخال الحي
+        searchBtn.addEventListener('click', () => {
+            filterPosts(searchInput.value);
+        });
+
+        searchInput.addEventListener('input', () => {
+            filterPosts(searchInput.value);
+        });
+
+        // تشغيل كروت التصنيفات عند النقر
+        categoryCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const selectedCat = card.getAttribute('data-category');
+                
+                categoryCards.forEach(c => c.classList.remove('active-cat'));
+                card.classList.add('active-cat');
+
+                searchInput.value = '';
+                filterPosts('', selectedCat);
+            });
+        });
+
+        // زر قراءة الفكرة
+        document.querySelectorAll('.read-more').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const postTitle = btn.closest('.post-card').querySelector('h3').textContent;
+                alert(`قريباً: تفاصيل فكرة "${postTitle}"`);
+            });
+        });
+      });
+    </script>
 
     <!-- سكريبت Decap CMS Identity -->
     <script>

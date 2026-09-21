@@ -3,364 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: {} } }
-    </script>
-    <style>
-        /* تعريف وتضمين الخط المرفوع مسبقاً من قبلك كخط رئيسي للموقع */
-        @font-face {
-            font-family: 'Liftaswash';
-            src: url('Liftaswashv3-Regular.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
-        
-        body { font-family: 'Liftaswash', 'Cairo', sans-serif; transition: background 0.5s ease; }
-        
-        /* ضبط خلفية المتجر المضيئة لتصبح بلون أبيض نقي وصافي كما طلبت */
-        .light body { background: #ffffff; color: #0f172a; }
-        .dark body { background: radial-gradient(circle at center, #2d0b0b, #100303); color: #f8fafc; }
-        
-        /* تأثيرات زجاجية متناغمة مع الهوية الحمراء الجديدة */
-        .glass { backdrop-filter: blur(20px); }
-        .dark .glass { background: rgba(45, 11, 11, 0.4); border: 1px solid rgba(239, 68, 68, 0.2); }
-        .light .glass { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(239, 68, 68, 0.15); box-shadow: 0 15px 35px rgba(239, 68, 68, 0.08); }
-        
-        /* نيون أحمر متوهج جبار للمتجر */
-        .neon-text { text-shadow: 0 0 12px #dc2626, 0 0 25px #ef4444; }
-        .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card-hover:hover { transform: translateY(-12px); box-shadow: 0 25px 50px rgba(239, 68, 68, 0.25); border-color: #ef4444; }
-        
-        @keyframes bounce-cart { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
-        .animate-bounce-cart { animation: bounce-cart 0.3s ease; }
-        @media (max-width: 640px) { .text-6xl { font-size: 3rem; } }
+    <title>كل يوم فكرة | متجدد ومبتكر</title>
 
-        /* ستايل مخصص لشاشة التحميل الذكية لضمان الانسيابية المطلقة */
-        #loading-screen {
-            position: fixed;
-            inset: 0;
+    <!-- خط تجوال من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- مكتبة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- مكتبة Netlify/Decap Identity للتسجيل والدخول لـ Decap CMS -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #0d5175;     /* الأزرق البترولي من اللوجو */
+            --accent-color: #e69119;      /* البرتقالي/الأصفر المضيء من اللوجو */
+            --bg-light: #f8fafc;          /* خلفية فاتحة مريحة */
+            --text-dark: #1e293b;         /* لون النصوص الأساسي */
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            direction: rtl;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background-color: #ffffff;
+            border-bottom: 2px solid var(--border-color);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo img {
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 5px;
+        }
+
+        .search-box input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .search-box button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .search-box button:hover {
+            background-color: #093c58;
+        }
+
+        /* قسم الترحيب Hero */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), #093c58);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .hero-section h1 i {
+            color: var(--accent-color);
+            margin-right: 8px;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* التصنيفات */
+        .categories-section {
+            padding: 40px 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-right: 4px solid var(--accent-color);
+            padding-right: 10px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .category-card .icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* كروت الأفكار */
+        .posts-section {
+            padding: 20px 0 50px;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .post-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: rgba(13, 81, 117, 0.1);
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .card-tag.accent {
+            background-color: rgba(230, 145, 25, 0.15);
+            color: #c77707;
+        }
+
+        .post-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .post-card p {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
         }
-        .light #loading-screen { background-color: #ffffff; }
-        .dark #loading-screen { background-color: #100303; }
-        .loader-spinner {
-            border: 4px solid rgba(239, 68, 68, 0.1);
-            border-top: 4px solid #dc2626;
-            border-radius: 50%;
-            width: 55px;
-            height: 55px;
-            animation: spin-loader 1s linear infinite;
-            box-shadow: 0 0 15px rgba(220, 38, 38, 0.2);
+
+        .card-footer .date {
+            color: #94a3b8;
         }
-        @keyframes spin-loader { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .card-footer .date i {
+            margin-left: 4px;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+        }
+
+        /* الفوتر */
+        .main-footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        /* تجاوب الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
-<body class="light p-4 md:p-12">
+<body>
 
-    <div id="loading-screen">
-        <h2 class="text-7xl font-black italic tracking-tighter text-red-600 dark:text-red-500 neon-text mb-6 select-none animate-pulse">ZONK</h2>
-        <div class="loader-spinner"></div>
-    </div>
+    <!-- الهيدر العلوي -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="لوجو كل يوم فكرة" id="site-logo">
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html" class="active">الرئيسية</a>
+                <a href="#categories">التصنيفات</a>
+                <a href="#latest">أحدث الأفكار</a>
+                <a href="admin/" class="admin-link">لوحة التحكم</a>
+            </nav>
 
-    <nav class="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
-        <h1 class="text-6xl font-black italic tracking-tighter text-red-600 dark:text-red-500 neon-text">ZONK</h1>
-        <div class="flex items-center gap-8 text-sm font-bold uppercase tracking-widest">
-            <span class="cursor-pointer hover:text-red-600 dark:hover:text-red-400 transition">الرئيسية</span>
-            <div class="relative cursor-pointer hover:text-red-600 dark:hover:text-red-400 transition" onclick="toggleCartSidebar()">
-                <i class="fa-solid fa-cart-shopping text-xl"></i>
-                <span id="cart-count" class="absolute -top-4 -right-4 bg-red-600 text-white text-xs w-6 h-6 flex items-center justify-center rounded-full font-bold shadow-md shadow-red-600/50">0</span>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن فكرة...">
+                <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> بحث</button>
             </div>
-            <button onclick="document.documentElement.classList.toggle('dark')" class="p-2 rounded-full bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-200 transition">
-                <i class="fa-solid fa-circle-half-stroke"></i>
-            </button>
         </div>
-    </nav>
+    </header>
 
-    <div class="max-w-4xl mx-auto mb-16 space-y-6">
-        <div class="relative">
-            <input type="text" id="search-input" oninput="filterProducts()" placeholder="ابحث عن المنتجات هنا..." class="w-full p-4 pr-12 bg-gray-50 dark:bg-black/20 rounded-2xl border border-red-500/20 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/20 transition text-inherit text-lg shadow-sm">
-            <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></i>
+    <!-- قسم الهيرو / الترحيب -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>كل يوم فكرة.. تغير يومك للأفضل! <i class="fa-solid fa-lightbulb"></i></h1>
+            <p>اكتشف مئات الحيل والأفكار المبتكرة في التكنولوجيا، التوفير، المنزليات، وتطوير الذات.</p>
         </div>
-        
-        <div class="flex flex-wrap justify-center gap-3 text-sm font-bold">
-            <button onclick="filterCategory('all')" id="btn-all" class="px-6 py-2.5 rounded-xl bg-red-600 text-white shadow-md transition">الكل</button>
-            <button onclick="filterCategory('food')" id="btn-food" class="px-6 py-2.5 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-red-500/10 transition">الماكولات</button>
-            <button onclick="filterCategory('drinks')" id="btn-drinks" class="px-6 py-2.5 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-red-500/10 transition">البيبسي والمشروبات</button>
-            <button onclick="filterCategory('detergents')" id="btn-detergents" class="px-6 py-2.5 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-red-500/10 transition">المنظفات</button>
-        </div>
-    </div>
+    </section>
 
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="products"></section>
-
-    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-96 glass z-50 translate-x-full transition-transform duration-300 flex flex-col p-6 shadow-2xl">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold border-b-2 border-red-600 pb-1">سلة المشتريات</h2>
-            <button onclick="toggleCartSidebar()" class="text-xl p-2 text-gray-400 hover:text-red-600 transition"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div id="cart-items-container" class="flex-1 overflow-y-auto space-y-4 mb-4">
-            <p class="text-gray-400 text-center mt-10" id="empty-cart-msg">السلة فارغة حالياً</p>
-        </div>
-        <div class="border-t border-red-600/20 pt-4">
-            <div class="flex justify-between font-bold text-lg mb-4">
-                <span>الإجمالي:</span>
-                <span id="cart-total" class="text-red-600 dark:text-red-400">0 CR</span>
+    <!-- تصنيفات الأفكار -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <h2 class="section-title">التصنيفات الرئيسية</h2>
+            <div class="categories-grid">
+                <a href="#" class="category-card">
+                    <span class="icon"><i class="fa-solid fa-laptop-code"></i></span>
+                    <h3>تكنولوجيا وتطبيقات</h3>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="icon"><i class="fa-solid fa-house"></i></span>
+                    <h3>حيل منزلية</h3>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="icon"><i class="fa-solid fa-wallet"></i></span>
+                    <h3>توفير وماليات</h3>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="icon"><i class="fa-solid fa-brain"></i></span>
+                    <h3>تطوير وحلول</h3>
+                </a>
             </div>
-            <button onclick="showCheckoutModal()" class="w-full py-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-600/30 transition">الانتقال لإتمام الشراء</button>
         </div>
-    </div>
+    </section>
 
-    <div id="checkout-modal" class="hidden fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="glass w-full max-w-lg p-8 rounded-3xl border border-red-500/30">
-            <h2 class="text-2xl font-bold mb-6 text-center text-red-600 dark:text-red-400">بيانات التوصيل</h2>
-            <input type="text" id="cust-name" placeholder="الاسم الكامل" class="w-full p-4 mb-4 bg-white/5 dark:bg-black/20 rounded-xl border border-red-500/20 outline-none focus:border-red-600 transition text-inherit">
-            <input type="tel" id="cust-phone" placeholder="رقم التليفون" class="w-full p-4 mb-4 bg-white/5 dark:bg-black/20 rounded-xl border border-red-500/20 outline-none focus:border-red-600 transition text-inherit">
-            <input type="text" id="cust-address" placeholder="العنوان بالتفصيل" class="w-full p-4 mb-4 bg-white/5 dark:bg-black/20 rounded-xl border border-red-500/20 outline-none focus:border-red-600 transition text-inherit">
-            <input type="email" id="cust-email" placeholder="البريد الإلكتروني (اختياري)" class="w-full p-4 mb-6 bg-white/5 dark:bg-black/20 rounded-xl border border-red-500/20 outline-none focus:border-red-600 transition text-inherit">
-            <button onclick="sendOrderToWhatsApp()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-red-600 to-red-800 font-bold text-white shadow-lg shadow-red-600/30 hover:brightness-110 transition mb-4">تأكيد الطلب عبر واتساب</button>
-            <button onclick="closeCheckoutModal()" class="w-full text-gray-400 hover:text-red-500 transition font-medium">إلغاء</button>
+    <!-- شبكة أحدث الأفكار -->
+    <section class="posts-section" id="latest">
+        <div class="container">
+            <h2 class="section-title">أحدث الأفكار والمقالات</h2>
+            
+            <div class="posts-grid" id="postsContainer">
+                <!-- كارت تجريبي 1 -->
+                <article class="post-card">
+                    <div class="card-tag">تكنولوجيا</div>
+                    <div class="card-content">
+                        <h3>كيف تستفيد من الذكاء الاصطناعي في تنظيم وقتك يومياً؟</h3>
+                        <p>أفكار عملية وبسيطة لاستخدام الأدوات المتاحة مجاناً لزيادة إنتاجيتك وتنظيم جدولك...</p>
+                        <div class="card-footer">
+                            <span class="date"><i class="fa-regular fa-calendar-days"></i> 21 سبتمبر 2026</span>
+                            <a href="#" class="read-more">اقرأ الفكرة <i class="fa-solid fa-arrow-left"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- كارت تجريبي 2 -->
+                <article class="post-card">
+                    <div class="card-tag accent">توفير</div>
+                    <div class="card-content">
+                        <h3>5 طرق غير تقليدية لتقليل استهلاك الكهرباء في المنزل</h3>
+                        <p>خطوات سهلة ومجربة ستلاحظ تأثيرها المباشر على فاتورتك نهاية الشهر...</p>
+                        <div class="card-footer">
+                            <span class="date"><i class="fa-regular fa-calendar-days"></i> 20 سبتمبر 2026</span>
+                            <a href="#" class="read-more">اقرأ الفكرة <i class="fa-solid fa-arrow-left"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- كارت تجريبي 3 -->
+                <article class="post-card">
+                    <div class="card-tag">حيل منزلية</div>
+                    <div class="card-content">
+                        <h3>طريقة ترتيب المطبخ الضيق بأقل التكاليف</h3>
+                        <p>حلول واستراتيجيات واستغلال للمساحات الرأسية تجعل مطبخك أبسط وأرتب...</p>
+                        <div class="card-footer">
+                            <span class="date"><i class="fa-regular fa-calendar-days"></i> 18 سبتمبر 2026</span>
+                            <a href="#" class="read-more">اقرأ الفكرة <i class="fa-solid fa-arrow-left"></i></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </div>
-    </div>
+    </section>
 
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <p>جميع الحقوق محفوظة © 2026 - <strong>كل يوم فكرة</strong></p>
+        </div>
+    </footer>
+
+    <!-- سكريبت Decap CMS Identity -->
     <script>
-        // مصفوفة المنتجات المعدلة لتتوافق مع التصنيفات المطلوبة بدقة وعناية
-        const products = [
-            {id: 1, name: "وجبة برجر دبل كلاسيك", price: 150, icon: "fa-hamburger", category: "food"},
-            {id: 2, name: "بيتزا سوبر سوبريم", price: 220, icon: "fa-pizza-slice", category: "food"},
-            {id: 3, name: "عبوة بيبسي كانز 330 مل", price: 15, icon: "fa-bottle-water", category: "drinks"},
-            {id: 4, name: "كوكاكولا زيرو عائلية", price: 40, icon: "fa-wine-bottle", category: "drinks"},
-            {id: 5, name: "مسحوق غسيل أوتوماتيك", price: 180, icon: "fa-soap", category: "detergents"},
-            {id: 6, name: "سائل غسيل الأطباق مركز", price: 45, icon: "fa-pump-soap", category: "detergents"},
-            {id: 7, name: "باستا إيطالي بالصوص", price: 90, icon: "fa-bowl-food", category: "food"},
-            {id: 8, name: "عصير برتقال طبيعي فريش", price: 30, icon: "fa-glass-water", category: "drinks"},
-            {id: 9, name: "منظف زجاج وملمع سحري", price: 35, icon: "fa-spray-can-sparkles", category: "detergents"},
-            {id: 10, name: "ساندوتش كرانشي دجاج", price: 110, icon: "fa-bread-slice", category: "food"},
-            {id: 11, name: "مياه معدنية نقية كرتونة", price: 65, icon: "fa-faucet-drip", category: "drinks"},
-            {id: 12, name: "مطهر ومعقم أرضيات قوي", price: 75, icon: "fa-bucket", category: "detergents"}
-        ];
-
-        let cart = [];
-        let currentCategory = 'all';
-
-        function changeQty(id, delta) {
-            const input = document.getElementById(`qty-${id}`);
-            let val = parseInt(input.value) + delta;
-            if (val < 1) val = 1;
-            input.value = val;
-        }
-
-        function toggleCartSidebar() {
-            const sidebar = document.getElementById('cart-sidebar');
-            sidebar.classList.toggle('translate-x-full');
-        }
-
-        function addToCart(id) {
-            const qty = parseInt(document.getElementById(`qty-${id}`).value);
-            const product = products.find(p => p.id === id);
-            
-            const existingItem = cart.find(item => item.id === id);
-            if (existingItem) {
-                existingItem.qty += qty;
-            } else {
-                cart.push({ ...product, qty: qty });
-            }
-
-            updateCartUI();
-
-            const count = document.getElementById('cart-count');
-            count.classList.add('animate-bounce-cart');
-            setTimeout(() => count.classList.remove('animate-bounce-cart'), 300);
-
-            const alertText = document.getElementById(`alert-${id}`);
-            alertText.classList.remove('hidden', 'opacity-0');
-            alertText.classList.add('opacity-100');
-
-            setTimeout(() => {
-                alertText.classList.remove('opacity-100');
-                alertText.classList.add('opacity-0');
-                setTimeout(() => alertText.classList.add('hidden'), 300);
-            }, 2000);
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const container = document.getElementById('cart-items-container');
-            const totalCount = document.getElementById('cart-count');
-            const totalSum = document.getElementById('cart-total');
-
-            if (cart.length === 0) {
-                container.innerHTML = `<p class="text-gray-400 text-center mt-10" id="empty-cart-msg">السلة فارغة حالياً</p>`;
-                totalCount.innerText = '0';
-                totalSum.innerText = '0 CR';
-                return;
-            }
-
-            container.innerHTML = '';
-            let totalItems = 0;
-            let totalPrice = 0;
-
-            cart.forEach(item => {
-                totalItems += item.qty;
-                totalPrice += (item.price * item.qty);
-
-                container.innerHTML += `
-                    <div class="flex items-center justify-between p-3 bg-red-500/5 dark:bg-white/5 rounded-2xl border border-red-500/10 dark:border-white/10">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid ${item.icon} text-2xl text-red-600 dark:text-red-400"></i>
-                            <div class="text-right">
-                                <h4 class="font-bold text-sm">${item.name}</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">${item.price.toLocaleString()} CR × ${item.qty}</p>
-                            </div>
-                        </div>
-                        <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-600 transition p-2"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                `;
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
             });
-
-            totalCount.innerText = totalItems;
-            totalSum.innerText = totalPrice.toLocaleString() + ' CR';
-        }
-
-        function showCheckoutModal() { 
-            if(cart.length === 0) {
-                alert('الرجاء إضافة منتجات للسلة أولاً!');
-                return;
-            }
-            document.getElementById('cart-sidebar').classList.add('translate-x-full');
-            document.getElementById('checkout-modal').classList.remove('hidden'); 
-        }
-        function closeCheckoutModal() { document.getElementById('checkout-modal').classList.add('hidden'); }
-
-        function sendOrderToWhatsApp() {
-            const name = document.getElementById('cust-name').value.trim();
-            const phone = document.getElementById('cust-phone').value.trim();
-            const address = document.getElementById('cust-address').value.trim();
-            const email = document.getElementById('cust-email').value.trim();
-
-            if (!name || !phone || !address) {
-                alert('الرجاء ملء حقول الاسم، الهاتف، والعنوان!');
-                return;
-            }
-
-            let orderText = `🛍️ *طلب جديد من متجر ZONK* \n\n`;
-            orderText += `👤 *بيانات العميل:* \n`;
-            orderText += `• الاسم: ${name}\n`;
-            orderText += `• الهاتف: ${phone}\n`;
-            orderText += `• العنوان: ${address}\n`;
-            if (email) orderText += `• البريد الإلكتروني: ${email}\n`;
-            
-            orderText += `\n📦 *المنتجات المطلوبة:* \n`;
-            
-            let totalPrice = 0;
-            cart.forEach(item => {
-                const subTotal = item.price * item.qty;
-                totalPrice += subTotal;
-                orderText += `• ${item.name} (الكمية: ${item.qty}) -> ${subTotal.toLocaleString()} CR\n`;
-            });
-
-            orderText += `\n💰 *الإجمالي الكلي:* ${totalPrice.toLocaleString()} CR`;
-
-            const whatsappNumber = "201114086488";
-            const encodedText = encodeURIComponent(orderText);
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
-
-            window.open(whatsappUrl, '_blank');
-            
-            cart = [];
-            updateCartUI();
-            closeCheckoutModal();
-        }
-
-        // دالة عرض المنتجات المحسنة والمحدثة لتتوافق مع الفلترة والبحث والأقسام
-        function renderProducts(productsList) {
-            const container = document.getElementById('products');
-            container.innerHTML = '';
-            
-            if(productsList.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center p-10 text-gray-400 text-lg">لم يتم العثور على أي منتجات مطابقة للبحث!</div>`;
-                return;
-            }
-
-            productsList.forEach(p => {
-                container.innerHTML += `
-                    <div class="glass p-8 rounded-3xl card-hover text-center flex flex-col justify-between relative group">
-                        <div>
-                            <div class="w-20 h-20 bg-red-600/10 dark:bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <i class="fa-solid ${p.icon} text-4xl text-red-600 dark:text-red-400"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-800 dark:text-slate-100">${p.name}</h3>
-                            <p class="text-red-600 dark:text-red-400 font-black mb-4 text-lg">${p.price.toLocaleString()} CR</p>
-                        </div>
-                        
-                        <div>
-                            <div class="flex items-center justify-center gap-3 mb-4 bg-red-500/5 dark:bg-white/5 rounded-xl p-2 max-w-[150px] mx-auto border border-red-500/10 dark:border-white/10">
-                                <button onclick="changeQty(${p.id}, 1)" class="w-8 h-8 rounded-lg bg-red-600 text-white font-bold hover:bg-red-700 transition">+</button>
-                                <input type="text" id="qty-${p.id}" value="1" readonly class="w-8 text-center bg-transparent font-bold text-inherit outline-none">
-                                <button onclick="changeQty(${p.id}, -1)" class="w-8 h-8 rounded-lg bg-red-600 text-white font-bold hover:bg-red-700 transition">-</button>
-                            </div>
-                            
-                            <button onclick="addToCart(${p.id})" class="w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white transition font-bold mb-2 shadow-md shadow-red-600/20">شراء الآن</button>
-                            
-                            <div id="alert-${p.id}" class="hidden opacity-0 text-emerald-600 dark:text-emerald-400 font-bold text-sm transition-all duration-300">
-                                <i class="fa-solid fa-circle-check ml-1"></i>تم الإضافة إلى السلة
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        // دالة الفلترة الذكية المزدوجة (تدمج بين البحث النصي والقسم النشط حالياً)
-        function filterProducts() {
-            const query = document.getElementById('search-input').value.toLowerCase().trim();
-            
-            const filtered = products.filter(p => {
-                const matchesCategory = (currentCategory === 'all' || p.category === currentCategory);
-                const matchesSearch = p.name.toLowerCase().includes(query);
-                return matchesCategory && matchesSearch;
-            });
-            
-            renderProducts(filtered);
-        }
-
-        // دالة التبديل بين الأقسام وتغيير لون الأزرار النشطة ديناميكياً
-        function filterCategory(category) {
-            currentCategory = category;
-            
-            // تحديث تصميم أزرار التصفية لتمييز الزر النشط حالياً بشكل عصري
-            const categories = ['all', 'food', 'drinks', 'detergents'];
-            categories.forEach(cat => {
-                const btn = document.getElementById(`btn-${cat}`);
-                if(cat === category) {
-                    btn.className = "px-6 py-2.5 rounded-xl bg-red-600 text-white shadow-md transition";
-                } else {
-                    btn.className = "px-6 py-2.5 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-red-500/10 transition";
-                }
-            });
-            
-            filterProducts();
-        }
-
-        // تشغيل العرض الأولي للمنتجات بمجرد فتح الصفحة
-        renderProducts(products);
-
-        // كود برمجية شاشة التحميل الحقيقية: عند اكتمال تحميل الصفحة والخطوط والصور بالكامل تختفي شاشة التحميل بنعومة وسلاسة
-        window.onload = function() {
-            const loadingScreen = document.getElementById('loading-screen');
-            loadingScreen.style.opacity = '0';
-            loadingScreen.style.visibility = 'hidden';
-        };
+          }
+        });
+      }
     </script>
 </body>
 </html>

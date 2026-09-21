@@ -24,12 +24,12 @@
     }
     </script>
 
-    <!-- تحسين أداء وسرعة التحميل -->
+    <!-- تحسين أداء وسرعة التحميل واستدعاء خط تجوال Tajawal -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
 
     <!-- مكتبة Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -51,20 +51,16 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif !important;
+            font-family: 'Tajawal', sans-serif;
         }
 
         body {
-            font-family: 'Tajawal', sans-serif !important;
+            font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-dark);
             direction: rtl;
             line-height: 1.6;
             scroll-behavior: smooth;
-        }
-
-        button, input, select, textarea {
-            font-family: 'Tajawal', sans-serif !important;
         }
 
         .container {
@@ -129,7 +125,7 @@
             padding: 8px 12px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            font-family: inherit;
+            font-family: 'Tajawal', sans-serif;
             outline: none;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
@@ -146,7 +142,7 @@
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-            font-family: inherit;
+            font-family: 'Tajawal', sans-serif;
             font-weight: bold;
             transition: background 0.3s, transform 0.2s;
             display: flex;

@@ -105,6 +105,29 @@
             animation: spin 1s linear infinite;
         }
 
+        /* شريط التحميل الأفقي ليكون بديل الدائرة لمدة 3 ثوانٍ */
+        .progress-bar {
+            width: 250px;
+            height: 6px;
+            background-color: rgba(13, 81, 117, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background-color: var(--accent-color);
+            border-radius: 10px;
+            animation: progressAnim 3s linear forwards;
+        }
+
+        @keyframes progressAnim {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
         /* الهيدر */
         .main-header {
             background-color: #ffffff;
@@ -460,7 +483,10 @@
     
     <div id="preloader">
         <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="تحميل كل يوم فكرة" class="preloader-logo">
-        <div class="loader-spinner"></div>
+        <div class="loader-spinner" style="display: none;"></div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
     </div>
 
     <!-- الهيدر العلوي -->
@@ -584,7 +610,9 @@
       window.addEventListener('load', () => {
         const preloader = document.getElementById('preloader');
         if (preloader) {
-            preloader.classList.add('hidden');
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 3000);
         }
       });
 

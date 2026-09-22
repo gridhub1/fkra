@@ -40,6 +40,15 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
 
+        /* تعريف الخط المحلي */
+        @font-face {
+            font-family: 'OYMandisa';
+            src: url('alfont_com_OYMandisa-mob.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
             --primary-color: #0d5175;      /* الأزرق البترولي من اللوجو */
             --accent-color: #e69119;       /* البرتقالي/الأصفر المضيء من اللوجو */
@@ -56,7 +65,7 @@
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'OYMandisa', 'Tajawal', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-dark);
             direction: rtl;

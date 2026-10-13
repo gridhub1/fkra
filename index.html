@@ -1,721 +1,355 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كل يوم فكرة | متجدد ومبتكر</title>
-
-    <!-- تحسين محركات البحث للوجو والموقع SEO & Meta Tags -->
-    <meta name="description" content="موقع كل يوم فكرة يقدم حيل وأفكار مبتكرة في التكنولوجيا، التوفير، المنزليات، وتطوير الذات.">
-    <meta property="og:title" content="كل يوم فكرة | متجدد ومبتكر">
-    <meta property="og:description" content="اكتشف مئات الحيل والأفكار المبتكرة يومياً.">
-    <meta property="og:image" content="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png">
-    <meta property="og:type" content="website">
-    <link rel="icon" type="image/png" href="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png">
-
-    <!-- Schema.org للتعريف باللوجو والموقع لدى محركات البحث مثل جوجل -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "كل يوم فكرة",
-      "url": "https://ibb.co/vvBPfhcH",
-      "logo": "https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png"
-    }
-    </script>
-
-    <!-- تحسين أداء وسرعة التحميل -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-
-    <!-- مكتبة Font Awesome للأيقونات -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- مكتبة Netlify/Decap Identity للتسجيل والدخول لـ Decap CMS -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
-
-        /* تعريف الخط المحلي */
-        @font-face {
-            font-family: 'ZainPC';
-            src: url('alfont_com_zainpcv2-VFmobmadd.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        :root {
-            --primary-color: #0d5175;      /* الأزرق البترولي من اللوجو */
-            --accent-color: #e69119;       /* البرتقالي/الأصفر المضيء من اللوجو */
-            --bg-light: #f8fafc;           /* خلفية فاتحة مريحة */
-            --text-dark: #1e293b;          /* لون النصوص الأساسي */
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'ZainPC', 'Tajawal', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            direction: rtl;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* شاشة التحميل (Preloader) */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        #preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .preloader-logo {
-            width: 220px;
-            height: auto;
-            margin-bottom: 20px;
-            animation: logoPulse 1.5s infinite ease-in-out;
-        }
-
-        .loader-spinner {
-            width: 45px;
-            height: 45px;
-            border: 4px solid rgba(13, 81, 117, 0.1);
-            border-top: 4px solid var(--accent-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        /* شريط التحميل الأفقي ليكون بديل الدائرة لمدة 3 ثوانٍ */
-        .progress-bar {
-            width: 250px;
-            height: 6px;
-            background-color: rgba(13, 81, 117, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background-color: var(--accent-color);
-            border-radius: 10px;
-            animation: progressAnim 3s linear forwards;
-        }
-
-        @keyframes progressAnim {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        /* الهيدر */
-        .main-header {
-            background-color: #ffffff;
-            border-bottom: 2px solid var(--border-color);
-            padding: 12px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .logo img {
-            height: 80px; /* تم تكبير اللوجو في الهيدر */
-            width: auto;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .logo img:hover {
-            transform: scale(1.08);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s, transform 0.2s;
-            display: inline-block;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary-color);
-            font-weight: 700;
-            transform: translateY(-2px);
-        }
-
-        .search-box {
-            display: flex;
-            gap: 5px;
-        }
-
-        .search-box input {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .search-box input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(13, 81, 117, 0.15);
-        }
-
-        .search-box button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .search-box button:hover {
-            background-color: #093c58;
-            transform: translateY(-1px);
-        }
-
-        .search-box button:active {
-            transform: translateY(0);
-        }
-
-        /* قسم الترحيب Hero */
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-color), #093c58);
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-            border-radius: 0 0 20px 20px;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .hero-logo-wrapper {
-            margin-bottom: 20px;
-        }
-
-        .hero-logo {
-            max-width: 250px;
-            height: auto;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
-            transition: transform 0.3s ease;
-        }
-
-        .hero-logo:hover {
-            transform: scale(1.05);
-        }
-
-        .hero-section h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            color: #ffffff;
-        }
-
-        .hero-section h1 i {
-            color: var(--accent-color);
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-            display: inline-block;
-        }
-
-        .hero-section p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* التصنيفات */
-        .categories-section {
-            padding: 40px 0 20px;
-        }
-
-        .section-title {
-            font-size: 1.6rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            border-right: 4px solid var(--accent-color);
-            padding-right: 10px;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .category-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text-dark);
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
-            cursor: pointer;
-        }
-
-        .category-card:hover, .category-card.active-cat {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-color: var(--primary-color);
-        }
-
-        .category-card .icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-            transition: transform 0.3s;
-        }
-
-        .category-card:hover .icon {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        /* كروت الأفكار */
-        .posts-section {
-            padding: 20px 0 50px;
-        }
-
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .post-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            position: relative;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-
-        .post-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.07);
-        }
-
-        .card-tag {
-            display: inline-block;
-            background-color: rgba(13, 81, 117, 0.1);
-            color: var(--primary-color);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 12px;
-            width: fit-content;
-        }
-
-        .card-tag.accent {
-            background-color: rgba(230, 145, 25, 0.15);
-            color: #c77707;
-        }
-
-        .post-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
-        .post-card p {
-            font-size: 0.95rem;
-            color: #64748b;
-            margin-bottom: 20px;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border-color);
-            padding-top: 12px;
-        }
-
-        .card-footer .date {
-            color: #94a3b8;
-        }
-
-        .card-footer .date i {
-            margin-left: 4px;
-        }
-
-        .read-more {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: gap 0.2s, color 0.2s;
-        }
-
-        .read-more:hover {
-            color: var(--accent-color);
-            gap: 9px;
-        }
-
-        /* رسالة عدم وجود نتائج */
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px;
-            color: #64748b;
-            font-size: 1.2rem;
-        }
-
-        /* الفوتر */
-        .main-footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 30px 0 20px;
-            margin-top: 40px;
-        }
-
-        .footer-logo {
-            max-width: 180px;
-            height: auto;
-            margin-bottom: 15px;
-            filter: brightness(0) invert(1);
-            opacity: 0.9;
-        }
-
-        /* تأثيرات حركة الأنيميشن Keyframes */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes logoPulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* تجاوب الشاشات الصغيرة */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .logo img {
-                height: 65px;
-            }
-
-            .nav-links {
-                justify-content: center;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>قرية التلاوة – نجع المهيدات | الموسم الثاني | مسابقة</title>
+<meta name="description" content="قرية التلاوة – نجع المهيدات، الموسم الثاني على مستوى محافظة الأقصر. مسابقة القرآن الكريم." />
+<meta name="theme-color" content="#0b4130" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="manifest" href="manifest.json" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
-    <div id="preloader">
-        <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="تحميل كل يوم فكرة" class="preloader-logo">
-        <div class="loader-spinner" style="display: none;"></div>
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
+
+<!-- ═══════════ الهيدر ═══════════ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand" title="الجنيرال سيد المصري – أبو نور">
+      <span class="brand-mark">✦</span>
+      <span class="brand-text">
+        <span class="brand-name">الجنيرال سيد المصري</span>
+        <span class="brand-sub">أبو نور</span>
+      </span>
     </div>
+    <div class="header-main">
+      <h1>قرية التلاوة</h1>
+      <p>نجع المهيدات · الموسم الثاني</p>
+    </div>
+    <div class="header-tag"><span>📖</span><span>مسابقة القرآن الكريم</span></div>
+  </div>
+</header>
 
-    <!-- الهيدر العلوي -->
-    <header class="main-header">
-        <div class="container header-container">
-            <a href="https://ibb.co/vvBPfhcH" class="logo" title="كل يوم فكرة">
-                <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="شعار كل يوم فكرة" id="site-logo" width="240" height="80" loading="eager" decoding="async">
-            </a>
-            
-            <nav class="nav-links">
-                <a href="index.html" class="active" id="btnHome">الرئيسية</a>
-                <a href="#categories">التصنيفات</a>
-                <a href="#latest">أحدث الأفكار</a>
-            </nav>
+<!-- ═══════════ القائمة ═══════════ -->
+<nav class="site-nav" aria-label="القائمة الرئيسية">
+  <div class="container nav-inner">
+    <a href="#home"     class="nav-link active">الرئيسية</a>
+    <a href="#register" class="nav-link">تسجيل متسابق</a>
+    <a href="#card"     class="nav-link">بطاقة التسجيل</a>
+    <a href="#gallery"  class="nav-link">صور وفعاليات</a>
+    <a href="#promo"    class="nav-link">فيديو البرومو</a>
+    <a href="#judges"   class="nav-link">لجنة التحكيم</a>
+    <a href="#contact"  class="nav-link">تواصل معنا</a>
+  </div>
+</nav>
 
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="ابحث عن فكرة..." aria-label="البحث عن فكرة">
-                <button id="searchBtn" type="button"><i class="fa-solid fa-magnifying-glass"></i> بحث</button>
+<main>
+  <!-- ═══════════ الهيرو ═══════════ -->
+  <section id="home" class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">مسابقة</span>
+      <h2>📖 قرية التلاوة</h2>
+      <p class="hero-place">نجع المهيدات</p>
+      <div class="hero-season">الموسم الثاني على مستوى محافظة الأقصر</div>
+      <p class="hero-verse">﴿ أهل القرآن هم أهل الله وخاصته ﴾</p>
+      <div class="counter-box">
+        <span>👥</span>
+        <span id="counterDisplay">0</span>
+        <span>متسابق مسجل</span>
+      </div>
+      <div class="hero-actions">
+        <a href="#register" class="btn btn-gold">🪪 تسجيل متسابق</a>
+        <a href="#card" class="btn btn-ghost" style="border-color:rgba(212,175,55,.6);color:var(--gold-soft);background:rgba(212,175,55,.10);">بطاقة التسجيل</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ تسجيل متسابق ═══════════ -->
+  <section id="register" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="orn">❖</span> تسجيل متسابق جديد <span class="orn">❖</span></h2>
+        <span class="head-line"></span>
+        <p class="section-sub">املأ البيانات التالية بدقة، ثم اضغط على «إنشاء بطاقة التسجيل».</p>
+      </div>
+
+      <form id="regForm" class="form-card" novalidate autocomplete="on">
+        <div class="form-grid">
+
+          <div class="field field-full">
+            <label for="fullName">اسم المتسابق (رباعي) <span class="req">*</span></label>
+            <input id="fullName" name="fullName" type="text" placeholder="مثال: محمد أحمد محمود عبد الرحمن" required />
+            <span class="hint">اكتب الاسم رباعي (4 أجزاء على الأقل).</span>
+          </div>
+
+          <div class="field">
+            <label for="age">السن <span class="req">*</span></label>
+            <input id="age" name="age" type="number" min="5" max="90" inputmode="numeric" placeholder="مثال: 12" required />
+          </div>
+
+          <div class="field">
+            <label for="level">المستوى <span class="req">*</span></label>
+            <select id="level" name="level" required>
+              <option value="">اختر المستوى</option>
+              <option value="أقل من 15 سنة">أقل من 15 سنة</option>
+              <option value="أكبر من 15 سنة">أكبر من 15 سنة</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="phone">رقم الهاتف (الواتساب) <span class="req">*</span></label>
+            <input id="phone" name="phone" type="tel" inputmode="numeric" placeholder="01xxxxxxxxx" required />
+            <span class="hint">11 رقم يبدأ بـ 01 — يمنع التسجيل المتكرر.</span>
+          </div>
+
+          <div class="field">
+            <label for="governorate">المحافظة</label>
+            <input id="governorate" name="governorate" type="text" value="الأقصر" readonly />
+          </div>
+
+          <div class="field">
+            <label for="center">المركز <span class="req">*</span></label>
+            <select id="center" name="center" required>
+              <option value="">اختر المركز</option>
+              <option value="مركز الطود">مركز الطود</option>
+              <option value="مركز الأقصر">مركز الأقصر</option>
+              <option value="مركز البياضية">مركز البياضية</option>
+              <option value="مركز إسنا">مركز إسنا</option>
+              <option value="مركز أرمنت">مركز أرمنت</option>
+              <option value="مركز الزينية">مركز الزينية</option>
+              <option value="مركز القرنة">مركز القرنة</option>
+            </select>
+          </div>
+
+          <div class="field field-full">
+            <label for="address">القرية / العنوان بالتفصيل</label>
+            <input id="address" name="address" type="text" placeholder="اكتب العنوان بالتفصيل" />
+          </div>
+
+          <div class="field">
+            <label for="teacher">اسم المحفّظ <span class="req">*</span></label>
+            <input id="teacher" name="teacher" type="text" placeholder="اسم الشيخ أو المحفّظ" required />
+          </div>
+
+          <div class="field">
+            <label for="amount">مقدار القرآن المحفوظ <span class="req">*</span></label>
+            <input id="amount" name="amount" type="text" placeholder="مثال: 10 أجزاء" required />
+          </div>
+
+          <div class="field field-full">
+            <label>صورة شخصية حقيقية للمتسابق <span class="req">*</span></label>
+            <div class="photo-upload">
+              <div class="photo-preview" id="photoPreview">
+                <span class="ph-icon">📷</span>
+                <span class="ph-text">لا توجد صورة</span>
+              </div>
+              <div class="photo-actions">
+                <input type="file" id="photo" accept="image/*" hidden />
+                <button type="button" class="btn btn-soft" id="pickPhotoBtn">📁 اختيار صورة من الهاتف</button>
+                <span class="hint">صورة واضحة بخلفية بسيطة — بحد أقصى 5 ميجابايت.</span>
+              </div>
             </div>
-        </div>
-    </header>
+          </div>
 
-    <!-- قسم الهيرو / الترحيب -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="hero-logo-wrapper">
-                <a href="https://ibb.co/vvBPfhcH">
-                    <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="شعار كل يوم فكرة" class="hero-logo">
-                </a>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-lg">🪪 إنشاء بطاقة التسجيل</button>
+          <button type="reset" class="btn btn-ghost" id="resetBtn">إعادة تعيين</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════ بطاقة التسجيل ═══════════ -->
+  <section id="card" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="orn">❖</span> بطاقة التسجيل <span class="orn">❖</span></h2>
+        <span class="head-line"></span>
+        <p class="section-sub">بعد إنشاء البطاقة يمكنك طباعتها أو حفظها أو مشاركتها كصورة.</p>
+      </div>
+
+      <div id="cardEmpty" class="empty-state">
+        <span class="empty-icon">🪪</span>
+        <p><strong>لم يتم إنشاء بطاقة بعد.</strong></p>
+        <p>املأ نموذج التسجيل ثم اضغط على «إنشاء بطاقة التسجيل».</p>
+        <a href="#register" class="btn btn-primary">الذهاب إلى نموذج التسجيل</a>
+      </div>
+
+      <div id="cardWrap" class="card-wrap" hidden>
+        <div id="printArea">
+          <article class="reg-card" id="regCard">
+            <div class="card-inner">
+
+              <div class="decor-top">
+                <div class="lantern"><span>🏮</span></div>
+                <div class="mosque-shape">🕌</div>
+                <div class="lantern"><span>🏮</span></div>
+              </div>
+
+              <div class="card-head-new">
+                <div class="card-logo-new">
+                  <span class="logo-emblem">🕌</span>
+                  <span class="logo-name">قرية التلاوة</span>
+                  <span class="logo-sub">نجع المهيدات - الموسم الثاني</span>
+                </div>
+                <div class="card-brand-new">
+                  <span class="brand-title">الجنيرال سيد المصري</span>
+                  <span class="brand-sub">أبو نور</span>
+                </div>
+              </div>
+
+              <div class="photo-wrap">
+                <div class="photo-frame">
+                  <img id="cardPhoto" src="" alt="صورة المتسابق" />
+                </div>
+                <div class="laurel-left">🌿</div>
+                <div class="laurel-right">🌿</div>
+              </div>
+
+              <div class="name-banner"><span id="cardName">—</span></div>
+
+              <div class="level-pill">
+                <span class="pill-icon">👤</span>
+                <span id="cardLevel">—</span>
+              </div>
+
+              <div class="code-qr-box">
+                <div id="qrcode" class="qr-box"></div>
+                <div class="code-part">
+                  <span class="code-label">كود التسجيل</span>
+                  <span class="code-value" id="cardCode">QT-0000-0000</span>
+                </div>
+              </div>
+
+              <div class="data-table">
+                <div class="data-row"><span class="row-tag">📅 السن</span><strong id="cardAge">—</strong></div>
+                <div class="data-row"><span class="row-tag">📍 المحافظة</span><strong>الأقصر</strong></div>
+                <div class="data-row"><span class="row-tag">🏛️ المركز</span><strong id="cardCenter">—</strong></div>
+                <div class="data-row"><span class="row-tag">🗺️ العنوان</span><strong id="cardAddress">—</strong></div>
+                <div class="data-row"><span class="row-tag">📖 المحفّظ</span><strong id="cardTeacher">—</strong></div>
+                <div class="data-row"><span class="row-tag">📚 مقدار الحفظ</span><strong id="cardAmount">—</strong></div>
+              </div>
+
+              <div class="card-footer-new">
+                <span class="footer-orn">❖</span>
+                <span class="footer-text">بالتوفيق في مسابقة القرآن الكريم</span>
+                <span class="footer-orn">❖</span>
+              </div>
+
             </div>
-            <h1>كل يوم فكرة.. تغير يومك للأفضل! <i class="fa-solid fa-lightbulb"></i></h1>
-            <p>اكتشف مئات الحيل والأفكار المبتكرة في التكنولوجيا، التوفير، المنزليات، وتطوير الذات.</p>
+          </article>
         </div>
-    </section>
 
-    <!-- تصنيفات الأفكار -->
-    <section class="categories-section" id="categories">
-        <div class="container">
-            <h2 class="section-title">التصنيفات الرئيسية</h2>
-            <div class="categories-grid">
-                <a href="#latest" class="category-card" data-category="تكنولوجيا وتطبيقات">
-                    <span class="icon"><i class="fa-solid fa-laptop-code"></i></span>
-                    <h3>تكنولوجيا وتطبيقات</h3>
-                </a>
-                <a href="#latest" class="category-card" data-category="حيل منزلية">
-                    <span class="icon"><i class="fa-solid fa-house"></i></span>
-                    <h3>حيل منزلية</h3>
-                </a>
-                <a href="#latest" class="category-card" data-category="توفير وماليات">
-                    <span class="icon"><i class="fa-solid fa-wallet"></i></span>
-                    <h3>توفير وماليات</h3>
-                </a>
-                <a href="#latest" class="category-card" data-category="تطوير وحلول">
-                    <span class="icon"><i class="fa-solid fa-brain"></i></span>
-                    <h3>تطوير وحلول</h3>
-                </a>
-            </div>
+        <div class="card-actions no-print">
+          <button type="button" class="btn btn-primary" id="printBtn">🖨️ طباعة / حفظ البطاقة</button>
+          <button type="button" class="btn btn-wa" id="waBtn">📲 مشاركة كصورة على واتساب</button>
         </div>
-    </section>
+        <p class="card-note no-print">💡 احتفظ بكود المتسابق — سيُطلب منك عند التحكيم.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- شبكة أحدث الأفكار -->
-    <section class="posts-section" id="latest">
-        <div class="container">
-            <h2 class="section-title">أحدث الأفكار والمقالات</h2>
-            
-            <div class="posts-grid" id="postsContainer">
-                <!-- كارت تجريبي 1 -->
-                <article class="post-card" data-category="تكنولوجيا وتطبيقات">
-                    <div class="card-tag">تكنولوجيا</div>
-                    <div class="card-content">
-                        <h3>كيف تستفيد من الذكاء الاصطناعي في تنظيم وقتك يومياً؟</h3>
-                        <p>أفكار عملية وبسيطة لاستخدام الأدوات المتاحة مجاناً لزيادة إنتاجيتك وتنظيم جدولك...</p>
-                        <div class="card-footer">
-                            <span class="date"><i class="fa-regular fa-calendar-days"></i> 21 سبتمبر 2026</span>
-                            <a href="#" class="read-more">اقرأ الفكرة <i class="fa-solid fa-arrow-left"></i></a>
-                        </div>
-                    </div>
-                </article>
+  <!-- ═══════════ الصور ═══════════ -->
+  <section id="gallery" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="orn">❖</span> صور من فعاليات الموسم الماضي <span class="orn">❖</span></h2>
+        <span class="head-line"></span>
+        <p class="section-sub">لقطات من أجواء المسابقة وتكريم المشاركين.</p>
+      </div>
+      <div class="gallery">
+        <figure class="g-item"><img src="1.jpg" alt="صور فعاليات الموسم الماضي"></figure>
+        <figure class="g-item"><img src="2.jpg" alt="صور فعاليات الموسم الماضي"></figure>
+        <figure class="g-item"><img src="3.jpg" alt="صور فعاليات الموسم الماضي"></figure>
+        <figure class="g-item"><img src="4.jpg" alt="صور فعاليات الموسم الماضي"></figure>
+        <figure class="g-item"><img src="5.jpg" alt="صور فعاليات الموسم الماضي"></figure>
+        <figure class="g-item"><img src="6.jpg" alt="صور فعاليات الموسم الماضي"></figure>
+      </div>
+    </div>
+  </section>
 
-                <!-- كارت تجريبي 2 -->
-                <article class="post-card" data-category="توفير وماليات">
-                    <div class="card-tag accent">توفير</div>
-                    <div class="card-content">
-                        <h3>5 طرق غير تقليدية لتقليل استهلاك الكهرباء في المنزل</h3>
-                        <p>خطوات سهلة ومجربة ستلاحظ تأثيرها المباشر على فاتورتك نهاية الشهر...</p>
-                        <div class="card-footer">
-                            <span class="date"><i class="fa-regular fa-calendar-days"></i> 20 سبتمبر 2026</span>
-                            <a href="#" class="read-more">اقرأ الفكرة <i class="fa-solid fa-arrow-left"></i></a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- كارت تجريبي 3 -->
-                <article class="post-card" data-category="حيل منزلية">
-                    <div class="card-tag">حيل منزلية</div>
-                    <div class="card-content">
-                        <h3>طريقة ترتيب المطبخ الضيق بأقل التكاليف</h3>
-                        <p>حلول واستراتيجيات واستغلال للمساحات الرأسية تجعل مطبخك أبسط وأرتب...</p>
-                        <div class="card-footer">
-                            <span class="date"><i class="fa-regular fa-calendar-days"></i> 18 سبتمبر 2026</span>
-                            <a href="#" class="read-more">اقرأ الفكرة <i class="fa-solid fa-arrow-left"></i></a>
-                        </div>
-                    </div>
-                </article>
-            </div>
+  <!-- ═══════════ الفيديو ═══════════ -->
+  <section id="promo" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="orn">❖</span> فيديو البرومو <span class="orn">❖</span></h2>
+        <span class="head-line"></span>
+        <p class="section-sub">شاهد أجواء الموسم السابق قبل ما تبدأ رحلتك في الموسم الثاني.</p>
+      </div>
+      <div class="notice-box" style="max-width:600px;">
+        <span class="nb-icon">🎬</span>
+        <h3>كلمة الوزير المحافظ وبرومو المسابقة</h3>
+        <p>شاهد كلمة معالي الوزير المحافظ في حفل تكريم الفائزين بالموسم الماضي، وبرومو المسابقة الرسمي من خلال الأزرار التالية.</p>
+        <div style="margin-top:1.2rem;display:flex;flex-direction:column;gap:0.7rem;align-items:center;">
+          <a href="https://www.facebook.com/share/v/1DqWL4HvGr/" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:1rem;padding:.8rem 2rem;width:100%;max-width:340px;">🎬 كلمة الوزير المحافظ</a>
+          <a href="https://www.facebook.com/share/v/1FJV3dqSZT/?mibextid=wwXIfr" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:1rem;padding:.8rem 2rem;width:100%;max-width:340px;">▶️ برومو المسابقة</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- الفوتر -->
-    <footer class="main-footer">
-        <div class="container footer-content">
-            <a href="https://ibb.co/vvBPfhcH">
-                <img src="https://i.ibb.co/84B5Gbm0/TT2k-QHRw-1.png" alt="شعار كل يوم فكرة" class="footer-logo">
-            </a>
-            <p>جميع الحقوق محفوظة © 2026 - <strong>كل يوم فكرة</strong></p>
-        </div>
-    </footer>
+  <!-- ═══════════ لجنة التحكيم ═══════════ -->
+  <section id="judges" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="orn">❖</span> لجنة التحكيم <span class="orn">❖</span></h2>
+        <span class="head-line"></span>
+      </div>
+      <div class="notice-box">
+        <span class="nb-icon">⚖️</span>
+        <h3>سيتم الإعلان عنها قريبًا</h3>
+        <p>سيتم الإعلان عن أعضاء لجنة التحكيم قبل بدء الاختبارات بإذن الله.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- سكريبت تشغيل الأزرار والبحث التفاعلي وإخفاء التحميل -->
-    <script>
-      window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            setTimeout(() => {
-                preloader.classList.add('hidden');
-            }, 3000);
-        }
-      });
+  <!-- ═══════════ تواصل معنا ═══════════ -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="orn">❖</span> تواصل معنا <span class="orn">❖</span></h2>
+        <span class="head-line"></span>
+        <p class="section-sub">لأي استفسار بخصوص المسابقة والتسجيل.</p>
+      </div>
+      <div class="contact-grid" id="contactGrid"></div>
+    </div>
+  </section>
+</main>
 
-      document.addEventListener('DOMContentLoaded', () => {
-        const searchInput = document.getElementById('searchInput');
-        const searchBtn = document.getElementById('searchBtn');
-        const postsContainer = document.getElementById('postsContainer');
-        const posts = Array.from(postsContainer.getElementsByClassName('post-card'));
-        const categoryCards = document.querySelectorAll('.category-card');
+<!-- ═══════════ الفوتر ═══════════ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-title">قرية التلاوة – نجع المهيدات | الموسم الثاني</p>
+    <p class="footer-copy">
+      <span class="brand brand-sm"><span class="brand-mark">✦</span><span class="brand-text"><span class="brand-name">الجنيرال سيد المصري</span><span class="brand-sub">أبو نور</span></span></span>
+      <span>جميع الحقوق محفوظة © 2026</span>
+    </p>
+  </div>
+</footer>
 
-        // دالة تصفية المقالات عند البحث أو التصفية
-        function filterPosts(query = '', category = '') {
-            let visibleCount = 0;
-            const cleanQuery = query.trim().toLowerCase();
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-            posts.forEach(post => {
-                const title = post.querySelector('h3').textContent.toLowerCase();
-                const text = post.querySelector('p').textContent.toLowerCase();
-                const tag = post.querySelector('.card-tag').textContent.toLowerCase();
-                const postCat = post.getAttribute('data-category') || '';
+<!-- ═══ المكتبات ═══ -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-                const matchesQuery = cleanQuery === '' || title.includes(cleanQuery) || text.includes(cleanQuery) || tag.includes(cleanQuery);
-                const matchesCategory = category === '' || postCat === category;
+<!-- ═══ كود الموقع ═══ -->
+<script src="script.js"></script>
 
-                if (matchesQuery && matchesCategory) {
-                    post.style.display = 'flex';
-                    post.style.animation = 'fadeInUp 0.4s ease-out forwards';
-                    visibleCount++;
-                } else {
-                    post.style.display = 'none';
-                }
-            });
-
-            // إظهار رسالة عند عدم وجود نتائج
-            let noResultsMsg = document.getElementById('noResultsMsg');
-            if (visibleCount === 0) {
-                if (!noResultsMsg) {
-                    noResultsMsg = document.createElement('div');
-                    noResultsMsg.id = 'noResultsMsg';
-                    noResultsMsg.className = 'no-results';
-                    noResultsMsg.innerHTML = '<i class="fa-solid fa-magnifying-glass-minus" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>لم نجد أفكاراً تطابق بحثك حالياً.';
-                    postsContainer.appendChild(noResultsMsg);
-                }
-            } else if (noResultsMsg) {
-                noResultsMsg.remove();
-            }
-        }
-
-        // تشغيل زر البحث والإدخال الحي
-        searchBtn.addEventListener('click', () => {
-            filterPosts(searchInput.value);
-        });
-
-        searchInput.addEventListener('input', () => {
-            filterPosts(searchInput.value);
-        });
-
-        // تشغيل كروت التصنيفات عند النقر
-        categoryCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                const selectedCat = card.getAttribute('data-category');
-                
-                categoryCards.forEach(c => c.classList.remove('active-cat'));
-                card.classList.add('active-cat');
-
-                searchInput.value = '';
-                filterPosts('', selectedCat);
-            });
-        });
-
-        // زر قراءة الفكرة
-        document.querySelectorAll('.read-more').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const postTitle = btn.closest('.post-card').querySelector('h3').textContent;
-                alert(`قريباً: تفاصيل فكرة "${postTitle}"`);
-            });
-        });
-      });
-    </script>
-
-    <!-- سكريبت Decap CMS Identity -->
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
+<!-- ═══ Service Worker للتطبيق ═══ -->
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(()=>{});
+    });
+  }
+</script>
 </body>
-</html>
+  </html>
